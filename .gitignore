@@ -1,4 +1,10 @@
+## CMake
 CMakeCache.txt
 CMakeFiles
 Makefile
+Librairie.cmake
 cmake_install.cmake
+
+## Les fichiers compilés
+*.a
+asservissement
