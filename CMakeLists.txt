@@ -13,9 +13,6 @@ set     (PhoenixAsservissement_VERSION_MINOR 1)
 ####################################################################
 #   Source
 ####################################################################
-# Déclaration du nom (public) de la librairie
-set(Library cartographieLib)
-
 # Fichier de réglages dépendant de la plateforme
 if(${ARCH} STREQUAL PC)
     set(REGLAGES_H "PC.h")
@@ -26,7 +23,7 @@ add_definitions("-DREGLAGES_HEADER=\"reglages/${REGLAGES_H}\"")
 
 ## Déclaration de la librairie aux projets qui utilisent celui-ci
 # Déclaration des sources de la librairie
-add_library(${Library} STATIC
+add_library(${PROJECT_NAME}Lib STATIC
     asser.c
     PID.c
     odometrie.c
@@ -37,21 +34,22 @@ add_library(${Library} STATIC
     hardware_${ARCH}.c
 )
 # Includes publics
-target_include_directories(${Library} INTERFACE
+target_include_directories(${PROJECT_NAME}Lib INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
 )
-target_link_libraries(${Library} INTERFACE
+target_link_libraries(${PROJECT_NAME}Lib INTERFACE
     m
 )
 
 # Librairie à linker
-export(TARGETS ${Library} FILE Librairie.cmake)
+export(TARGETS ${PROJECT_NAME}Lib FILE Librairie.cmake)
 
 include_directories(..)
 
-add_executable(asservissement
+add_executable(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/main.c
 )
-target_link_libraries(asservissement
-    ${Library}
+add_executable(main_binary ALIAS ${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME}
+    ${PROJECT_NAME}Lib
 )
