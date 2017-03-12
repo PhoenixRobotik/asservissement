@@ -13,7 +13,8 @@ include(${GenericCmakeLists})
 #   Source
 ####################################################################
 # Fichier de réglages dépendant de la plateforme
-if(${ARCH} STREQUAL PC)
+set(ROBOT gros)
+if(${TOOLCHAIN} STREQUAL PC)
     set(REGLAGES_H "PC.h")
 else()
     set(REGLAGES_H "${ROBOT}_robot.h")
@@ -30,7 +31,7 @@ add_library(${PROJECT_NAME}Lib STATIC
     math_precalc.c
     tests_unitaires.c
     reception_communication.c
-    hardware_${ARCH}.c
+    hardware_${TOOLCHAIN}.c
 )
 # Includes publics
 target_include_directories(${PROJECT_NAME}Lib INTERFACE
