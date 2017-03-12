@@ -3,12 +3,11 @@
 ####################################################################
 cmake_minimum_required(VERSION 3.4 FATAL_ERROR)
 
-# Toolchain = architecture utilisée
-include("${CMAKE_CURRENT_SOURCE_DIR}/../toolchains/${ARCH}.cmake")
-
 project (PhoenixAsservissement)
 set     (PhoenixAsservissement_VERSION_MAJOR 0)
 set     (PhoenixAsservissement_VERSION_MINOR 1)
+
+include(${GenericCmakeLists})
 
 ####################################################################
 #   Source
@@ -52,4 +51,5 @@ add_executable(${PROJECT_NAME}
 add_executable(main_binary ALIAS ${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME}
     ${PROJECT_NAME}Lib
+    ${Toolchain_LFlags}
 )
