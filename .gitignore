@@ -8,4 +8,5 @@ cmake_install.cmake
 ## Les fichiers compilés
 *.a
 PhoenixAsservissement
+build
 build-*
